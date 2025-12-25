@@ -11,7 +11,7 @@ st.title("📄 Word to HTML Converter")
 st.write("""
 Upload a Microsoft Word document (**docx**), and this tool will convert it to a **clean HTML file**.
 *   ✅ Preserves **Equations** (MathML)
-*   ✅ Embeds **Images** (no missing pictures)
+*   ✅ Embeds **Images** (Base64)
 """)
 
 # File Uploader
@@ -31,11 +31,13 @@ if uploaded_file is not None:
         with st.spinner('Converting... This may take a moment.'):
             try:
                 # Convert the file
+                # CHANGED: Used '--self-contained' instead of '--embed-resources'
+                # This ensures compatibility with older Pandoc versions on servers.
                 pypandoc.convert_file(
                     input_path,
                     "html",
                     outputfile=output_path,
-                    extra_args=["--mathml", "--embed-resources"]
+                    extra_args=["--mathml", "--self-contained"]
                 )
                 
                 # Success Message
@@ -52,4 +54,4 @@ if uploaded_file is not None:
 
             except Exception as e:
                 st.error(f"❌ An error occurred: {e}")
-                st.info("Debugging Info: Ensure 'pandoc' is installed in the system packages.")
+                st.info("Debugging Info: Ensure 'pandoc' is installed in packages.txt")
