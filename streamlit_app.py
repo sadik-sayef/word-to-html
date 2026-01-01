@@ -37,7 +37,7 @@ if uploaded_file is not None:
                     input_path,
                     "html",
                     outputfile=output_path,
-                    extra_args=["--mathml", "--self-contained"]
+                    extra_args=["--mathml"]
                 )
                 
                 # Success Message
